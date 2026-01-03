@@ -1,3 +1,4 @@
+
 export enum AgentType {
   CHAT = 'CHAT',
   IMAGE_GEN = 'IMAGE_GEN',
@@ -45,22 +46,22 @@ export interface LogEntry {
 export interface AIModel {
   id: string;
   name: string;
-  provider: string; // Changed to string to support GitHub usernames
+  provider: string; 
   type: 'Cloud' | 'Local';
   description: string;
-  requirements: string; // e.g. "8GB RAM" or "API Key"
+  requirements: string; 
   status: 'Not Installed' | 'Downloading' | 'Ready' | 'Active' | 'Error';
-  progress?: number; // 0-100 for downloading
+  progress?: number; 
   apiKeyRequired?: boolean;
-  downloadUrl?: string; // URL to the GitHub repo
-  stars?: number; // GitHub stars
+  downloadUrl?: string; 
+  stars?: number; 
 }
 
 export interface EditorPlugin {
   id: string;
   name: string;
-  icon: string; // lucide icon name
-  status: 'Connected' | 'Disconnected' | 'Not Installed';
+  icon: string; 
+  status: 'Connected' | 'Disconnected' | 'Connecting' | 'Error';
   version: string;
   port: number;
 }
@@ -79,14 +80,16 @@ export enum AspectRatio {
   THREE_FOUR = '3:4'
 }
 
-export interface GeminiConfig {
-  apiKey?: string;
-  ollamaUrl?: string;
-  selectedModel?: string;
+export interface ApiKeyConfig {
+  google: string;
+  openai: string;
+  anthropic: string;
+  groq: string;
+  mistral: string;
 }
 
 // Workflow Types
-export type WorkflowNodeType = 'TRIGGER' | 'AGENT_CHAT' | 'AGENT_IMAGE' | 'FILE_READ' | 'FILE_WRITE';
+export type WorkflowNodeType = 'TRIGGER' | 'AGENT' | 'MODEL' | 'TOOL' | 'MEMORY' | 'OUTPUT' | 'CHAIN';
 
 export interface WorkflowNode {
   id: string;
@@ -94,8 +97,11 @@ export interface WorkflowNode {
   position: { x: number; y: number };
   data: { 
     label: string; 
+    subLabel?: string;
+    icon?: string;
+    provider?: 'google' | 'openai' | 'anthropic' | 'ollama' | 'mistral' | 'groq' | 'system' | 'custom';
     status?: 'IDLE' | 'RUNNING' | 'COMPLETE' | 'ERROR';
-    output?: string;
+    config?: Record<string, any>;
   };
 }
 
