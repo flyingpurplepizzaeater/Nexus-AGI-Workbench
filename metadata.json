@@ -1,0 +1,5 @@
+{
+  "name": "Nexus AGI Workbench",
+  "description": "An advanced AGI assistant interface capable of multi-model orchestration, local file system management, and high-fidelity image generation/editing using the latest Gemini models.",
+  "requestFramePermissions": []
+}
